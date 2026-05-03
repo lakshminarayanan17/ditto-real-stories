@@ -84,11 +84,11 @@ type Slot = {
 };
 
 const slots: Record<number, Slot> = {
-  [-2]: { x: -460, y: 56, rotate: -19, scale: 0.92, opacity: 0.38, blur: 2.5, z: 1 },
-  [-1]: { x: -240, y: 12, rotate: -9.5, scale: 0.96, opacity: 0.55, blur: 1.5, z: 2 },
-  [0]:  { x: 0,    y: 0,  rotate: 0,    scale: 1,    opacity: 1,    blur: 0,   z: 5 },
-  [1]:  { x: 240,  y: 12, rotate: 9.5,  scale: 0.96, opacity: 0.55, blur: 1.5, z: 2 },
-  [2]:  { x: 460,  y: 56, rotate: 19,   scale: 0.92, opacity: 0.38, blur: 2.5, z: 1 },
+  [-2]: { x: -480, y: 80, rotate: -18, scale: 0.93, opacity: 0.42, blur: 2.5, z: 1 },
+  [-1]: { x: -250, y: 22, rotate: -9.5, scale: 0.97, opacity: 0.6, blur: 1.5, z: 2 },
+  [0]:  { x: 0,    y: 0,  rotate: 0,    scale: 1,    opacity: 1,   blur: 0,   z: 5 },
+  [1]:  { x: 250,  y: 22, rotate: 9.5,  scale: 0.97, opacity: 0.6, blur: 1.5, z: 2 },
+  [2]:  { x: 480,  y: 80, rotate: 18,   scale: 0.93, opacity: 0.42, blur: 2.5, z: 1 },
 };
 
 function offsetFor(index: number, active: number, length: number) {
@@ -122,21 +122,39 @@ export function RealStories() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse at 50% -10%, #cfe0f5 0%, #eef3fa 38%, #ffffff 75%)",
+            "radial-gradient(ellipse 90% 70% at 50% 0%, #b8d2ee 0%, #d6e4f3 30%, #eaf0f8 55%, #ffffff 85%)",
         }}
       />
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 w-full"
+        viewBox="0 0 1440 320"
+        preserveAspectRatio="none"
+        style={{ height: "260px", opacity: 0.55 }}
+      >
+        <defs>
+          <linearGradient id="rsHaze" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#a8c6e8" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#a8c6e8" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,0 L1440,0 L1440,180 C1140,260 900,280 720,250 C540,220 300,200 0,250 Z"
+          fill="url(#rsHaze)"
+        />
+      </svg>
 
-      <div className="mx-auto max-w-[1280px] px-6 pt-20 pb-16 text-center">
+      <div className="mx-auto max-w-[1280px] px-6 pt-20 pb-14 text-center">
         <h2
-          className="font-serif text-[clamp(28px,3.4vw,38px)] leading-[1.18] text-[var(--color-ink-deep)]"
-          style={{ fontFamily: 'var(--font-serif)' }}
+          className="font-serif text-[clamp(30px,3.2vw,40px)] leading-[1.18] text-[var(--color-ink-deep)]"
+          style={{ fontFamily: 'var(--font-serif)', fontWeight: 500 }}
         >
           Real Stories
           <br />
           Real Impact
         </h2>
         <p
-          className="mx-auto mt-4 max-w-[300px] text-[16px] leading-snug text-[var(--color-ink)]"
+          className="mx-auto mt-4 max-w-[320px] text-[17px] leading-snug text-[var(--color-ink)]"
           style={{ letterSpacing: "0.02em" }}
         >
           See how Ditto helps others, and find out what it can do for you.
