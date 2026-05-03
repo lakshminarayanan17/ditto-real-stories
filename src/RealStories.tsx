@@ -219,7 +219,7 @@ export function RealStories() {
         </p>
       </div>
 
-      <div className="real-stories-swiper-shell relative mx-auto mt-[50px] w-full max-w-[1440px]">
+      <div className="real-stories-swiper-shell relative mx-auto mt-[80px] w-full max-w-[1440px]">
         <Swiper
           modules={[Navigation, Pagination, EffectCreative, Keyboard, A11y]}
           className="testimonial_wrapper"
