@@ -33,17 +33,15 @@ body {
 
 /* Carousel: joindawn-style creative effect (semicircle fan) */
 .real-stories-swiper-shell {
-  /* Reserve enough vertical room for the fan arc to spread downward
-     without clipping. Outer cards translate ~250-400px below center. */
-  padding-bottom: 80px;
+  position: relative;
 }
 
 .real-stories-swiper-shell .swiper {
   overflow: visible;
-  height: 660px;
+  height: 540px;
   display: flex;
   align-items: flex-start;
-  padding-top: 24px;
+  padding-top: 12px;
 }
 
 .real-stories-swiper-shell .swiper-creative .swiper-slide {
@@ -54,6 +52,12 @@ body {
   width: 320px;
   height: 440px;
   cursor: grab;
+}
+
+/* Pin nav arrows just below the active card so the whole section
+   fits in one viewport without scrolling. */
+.real-stories-swiper-shell .real-stories-nav {
+  bottom: 24px;
 }
 
 .real-stories-swiper-shell .swiper:active {

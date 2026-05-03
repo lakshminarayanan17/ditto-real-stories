@@ -174,7 +174,7 @@ export function RealStories() {
   const swiperRef = useRef<SwiperClass | null>(null);
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative flex min-h-screen w-full flex-col overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
@@ -202,9 +202,9 @@ export function RealStories() {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1280px] px-6 pt-20 pb-14 text-center">
+      <div className="mx-auto w-full max-w-[1280px] px-6 pt-10 pb-6 text-center">
         <h2
-          className="font-serif text-[clamp(30px,3.2vw,40px)] leading-[1.18] text-[var(--color-ink-deep)]"
+          className="font-serif text-[clamp(28px,3vw,38px)] leading-[1.18] text-[var(--color-ink-deep)]"
           style={{ fontFamily: "var(--font-serif)", fontWeight: 500 }}
         >
           Real Stories
@@ -212,14 +212,14 @@ export function RealStories() {
           Real Impact
         </h2>
         <p
-          className="mx-auto mt-4 max-w-[320px] text-[17px] leading-snug text-[var(--color-ink)]"
+          className="mx-auto mt-3 max-w-[320px] text-[16px] leading-snug text-[var(--color-ink)]"
           style={{ letterSpacing: "0.02em" }}
         >
           See how Ditto helps others, and find out what it can do for you.
         </p>
       </div>
 
-      <div className="real-stories-swiper-shell relative mx-auto w-full max-w-[1440px]">
+      <div className="real-stories-swiper-shell relative mx-auto w-full max-w-[1440px] flex-1">
         <Swiper
           modules={[Navigation, Pagination, EffectCreative, Keyboard, A11y]}
           className="testimonial_wrapper"
@@ -290,7 +290,7 @@ export function RealStories() {
           ))}
         </Swiper>
 
-        <div className="mt-6 flex items-center justify-center gap-4">
+        <div className="real-stories-nav absolute left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-4">
           <NavButton
             direction="prev"
             onClick={() => swiperRef.current?.slidePrev()}
