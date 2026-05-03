@@ -84,6 +84,90 @@ const stories: Story[] = [
     imageAlt: "Concerned doctor",
     imageStyle: { right: "-12px", bottom: "0px", width: "190px" },
   },
+  {
+    id: "preexisting",
+    bg: "#7861c2",
+    textColor: "#ded4ff",
+    problem:
+      "A pre-existing condition almost got the entire claim denied at intimation.",
+    solution:
+      "Ditto pulled the policy fine print and proved the condition was covered.",
+    image: "/cards/doctor-call-2.png",
+    imageAlt: "Doctor on a call",
+    imageStyle: { right: "-20px", bottom: "0px", width: "220px" },
+  },
+  {
+    id: "network",
+    bg: "#0c3660",
+    textColor: "#dedede",
+    problem:
+      "The hospital wasn't on the cashless network and the family was asked to pay upfront.",
+    solution:
+      "Ditto opened a reimbursement track and chased it till the money landed.",
+    image: "/cards/hospital-bed.png",
+    imageAlt: "Hospital bedside",
+    imageStyle: { right: "-30px", bottom: "0px", width: "230px" },
+  },
+  {
+    id: "reimbursement",
+    bg: "#c28e61",
+    textColor: "#faede1",
+    problem:
+      "A reimbursement was sitting in 'under review' for over five weeks.",
+    solution:
+      "Ditto called the insurer daily and got the payout cleared in 48 hours.",
+    image: "/cards/thumbsup.png",
+    imageAlt: "Patients giving thumbs up",
+    imageStyle: { right: "-30px", bottom: "-10px", width: "260px" },
+  },
+  {
+    id: "premium",
+    bg: "#a3c6ed",
+    textColor: "#0b3967",
+    problem:
+      "A surprise premium hike at renewal made the policy unaffordable overnight.",
+    solution:
+      "Ditto compared every plan and moved them to one that kept the same cover.",
+    image: "/cards/doctor-glasses-2.png",
+    imageAlt: "Doctor with glasses thinking",
+    imageStyle: { right: "-30px", bottom: "0px", width: "230px" },
+  },
+  {
+    id: "documentation",
+    bg: "#bcc2c8",
+    textColor: "#0b3967",
+    problem:
+      "Critical papers got lost between the hospital and the insurer's office.",
+    solution:
+      "Ditto rebuilt the file from scratch and resubmitted within a single day.",
+    image: "/cards/doctor-2.png",
+    imageAlt: "Doctor reviewing files",
+    imageStyle: { right: "-12px", bottom: "0px", width: "190px" },
+  },
+  {
+    id: "coverage",
+    bg: "#c2a761",
+    textColor: "#fff4dc",
+    problem:
+      "Confusion about what was actually covered nearly caused a missed surgery.",
+    solution:
+      "Ditto walked through every clause and got pre-auth in time for the OT.",
+    image: "/cards/doctor-call.png",
+    imageAlt: "Doctor on phone",
+    imageStyle: { right: "-12px", bottom: "-8px", width: "210px" },
+  },
+  {
+    id: "first-claim",
+    bg: "#7861c2",
+    textColor: "#ded4ff",
+    problem:
+      "First-time claim, no idea what to file, and a panicked midnight call from the ER.",
+    solution:
+      "Ditto handled the paperwork end-to-end so the family could focus on care.",
+    image: "/cards/doctor-glasses.png",
+    imageAlt: "Doctor reading documents",
+    imageStyle: { right: "-20px", bottom: "0px", width: "200px" },
+  },
 ];
 
 export function RealStories() {

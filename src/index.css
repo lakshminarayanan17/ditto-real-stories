@@ -31,10 +31,19 @@ body {
   background: #f7f8fa;
 }
 
-/* Carousel: joindawn-style creative effect */
+/* Carousel: joindawn-style creative effect (semicircle fan) */
+.real-stories-swiper-shell {
+  /* Reserve enough vertical room for the fan arc to spread downward
+     without clipping. Outer cards translate ~250-400px below center. */
+  padding-bottom: 80px;
+}
+
 .real-stories-swiper-shell .swiper {
   overflow: visible;
-  padding-block: 40px;
+  height: 560px;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 24px;
 }
 
 .real-stories-swiper-shell .swiper-creative .swiper-slide {
@@ -43,8 +52,8 @@ body {
 
 .real-stories-swiper-shell .swiper-slide {
   width: 267px;
+  height: 359px;
   cursor: grab;
-  transition: opacity 250ms ease;
 }
 
 .real-stories-swiper-shell .swiper:active {
@@ -52,7 +61,7 @@ body {
 }
 
 .real-stories-swiper-shell .swiper-slide .testimonial_card {
-  opacity: 0.25;
+  opacity: 0.22;
   filter: blur(1.2px);
   transition: opacity 350ms ease, filter 350ms ease;
 }
