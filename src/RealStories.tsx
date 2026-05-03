@@ -202,7 +202,7 @@ export function RealStories() {
         />
       </svg>
 
-      <div className="mx-auto w-full max-w-[1280px] px-6 pt-10 pb-6 text-center">
+      <div className="mx-auto w-full max-w-[1280px] px-6 pt-6 pb-10 text-center">
         <h2
           className="font-serif text-[clamp(28px,3vw,38px)] leading-[1.18] text-[var(--color-ink-deep)]"
           style={{ fontFamily: "var(--font-serif)", fontWeight: 500 }}
