@@ -30,3 +30,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #f7f8fa;
 }
+
+/* Carousel: joindawn-style creative effect */
+.real-stories-swiper-shell .swiper {
+  overflow: visible;
+  padding-block: 40px;
+}
+
+.real-stories-swiper-shell .swiper-creative .swiper-slide {
+  overflow: visible;
+}
+
+.real-stories-swiper-shell .swiper-slide {
+  width: 267px;
+  cursor: grab;
+  transition: opacity 250ms ease;
+}
+
+.real-stories-swiper-shell .swiper:active {
+  cursor: grabbing;
+}
+
+.real-stories-swiper-shell .swiper-slide .testimonial_card {
+  opacity: 0.25;
+  filter: blur(1.2px);
+  transition: opacity 350ms ease, filter 350ms ease;
+}
+
+.real-stories-swiper-shell .swiper-slide-active .testimonial_card {
+  opacity: 1 !important;
+  filter: blur(0);
+}

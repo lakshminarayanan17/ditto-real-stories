@@ -1,4 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
+import { useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Navigation,
+  Pagination,
+  EffectCreative,
+  Keyboard,
+  A11y,
+} from "swiper/modules";
+import type { Swiper as SwiperClass } from "swiper/types";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-creative";
 
 type Story = {
   id: string;
@@ -73,47 +86,8 @@ const stories: Story[] = [
   },
 ];
 
-type Slot = {
-  x: number;
-  y: number;
-  rotate: number;
-  scale: number;
-  opacity: number;
-  blur: number;
-  z: number;
-};
-
-const slots: Record<number, Slot> = {
-  [-2]: { x: -480, y: 80, rotate: -18, scale: 0.93, opacity: 0.42, blur: 2.5, z: 1 },
-  [-1]: { x: -250, y: 22, rotate: -9.5, scale: 0.97, opacity: 0.6, blur: 1.5, z: 2 },
-  [0]:  { x: 0,    y: 0,  rotate: 0,    scale: 1,    opacity: 1,   blur: 0,   z: 5 },
-  [1]:  { x: 250,  y: 22, rotate: 9.5,  scale: 0.97, opacity: 0.6, blur: 1.5, z: 2 },
-  [2]:  { x: 480,  y: 80, rotate: 18,   scale: 0.93, opacity: 0.42, blur: 2.5, z: 1 },
-};
-
-function offsetFor(index: number, active: number, length: number) {
-  const half = Math.floor(length / 2);
-  return ((index - active + length + half) % length) - half;
-}
-
 export function RealStories() {
-  const [active, setActive] = useState(0);
-
-  const next = useCallback(() => {
-    setActive((a) => (a + 1) % stories.length);
-  }, []);
-  const prev = useCallback(() => {
-    setActive((a) => (a - 1 + stories.length) % stories.length);
-  }, []);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") next();
-      else if (e.key === "ArrowLeft") prev();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [next, prev]);
+  const swiperRef = useRef<SwiperClass | null>(null);
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -147,7 +121,7 @@ export function RealStories() {
       <div className="mx-auto max-w-[1280px] px-6 pt-20 pb-14 text-center">
         <h2
           className="font-serif text-[clamp(30px,3.2vw,40px)] leading-[1.18] text-[var(--color-ink-deep)]"
-          style={{ fontFamily: 'var(--font-serif)', fontWeight: 500 }}
+          style={{ fontFamily: "var(--font-serif)", fontWeight: 500 }}
         >
           Real Stories
           <br />
@@ -161,51 +135,93 @@ export function RealStories() {
         </p>
       </div>
 
-      <div className="relative mx-auto h-[480px] w-full max-w-[1280px]">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          {stories.map((story, i) => {
-            const off = offsetFor(i, active, stories.length);
-            const slot = slots[off];
-            const visible = !!slot;
-            const isActive = off === 0;
+      <div className="real-stories-swiper-shell relative mx-auto w-full max-w-[1440px]">
+        <Swiper
+          modules={[Navigation, Pagination, EffectCreative, Keyboard, A11y]}
+          className="testimonial_wrapper"
+          effect="creative"
+          slidesPerView="auto"
+          centeredSlides
+          loop
+          speed={400}
+          grabCursor
+          keyboard={{ enabled: true }}
+          initialSlide={0}
+          creativeEffect={{
+            limitProgress: 20,
+            prev: {
+              origin: "bottom right",
+              translate: ["-100%", 0, 0],
+              rotate: [0, 0, -7],
+            },
+            next: {
+              origin: "bottom left",
+              translate: ["100%", 0, 0],
+              rotate: [0, 0, 7],
+            },
+          }}
+          onSwiper={(s) => {
+            swiperRef.current = s;
+          }}
+          onSetTranslate={(s) => {
+            // Port of joindawn's fan math: cards beyond ±1 progress get
+            // additional translateX/Y so the fan continues to spread.
+            const rotationAngle = 7;
+            const xSpacingReduction = 0.2;
+            const progressionFactor = 1.5;
+            s.slides.forEach((slide) => {
+              const progress = (slide as HTMLElement & { progress: number })
+                .progress;
+              const absProgress = Math.abs(progress);
+              if (absProgress <= 1) return;
+              const slideWidth = (slide as HTMLElement).offsetWidth;
+              const slideHeight = (slide as HTMLElement).offsetHeight;
+              const totalRotation = rotationAngle * absProgress;
+              const radians = (totalRotation * Math.PI) / 180;
+              const yOffset =
+                (slideWidth / 2) * Math.sin(radians) * (absProgress - 1);
+              const yOffsetPercent = (yOffset / slideHeight) * 100;
+              const xOffset =
+                (slideWidth / 2) *
+                Math.sin(radians) *
+                Math.pow(absProgress - 1, progressionFactor);
+              const xOffsetPercent = (xOffset / slideHeight) * 100;
+              const reducedXOffset = xOffsetPercent * xSpacingReduction;
+              const finalXOffset =
+                progress < 0 ? reducedXOffset : -reducedXOffset;
+              (slide as HTMLElement).style.transform += ` translateX(${finalXOffset}%) translateY(${yOffsetPercent}%)`;
+            });
+          }}
+        >
+          {stories.map((story) => (
+            <SwiperSlide
+              key={story.id}
+              className="testimonial_slide"
+              style={{ width: "267px" }}
+            >
+              <div className="testimonial_card">
+                <Card story={story} />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-            return (
-              <button
-                key={story.id}
-                type="button"
-                aria-label={`Show story: ${story.problem.slice(0, 40)}…`}
-                aria-current={isActive ? "true" : undefined}
-                onClick={() => !isActive && setActive(i)}
-                tabIndex={visible ? 0 : -1}
-                className="absolute left-1/2 top-1/2 block cursor-pointer p-0 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ink)] rounded-[26px]"
-                style={{
-                  transform: visible
-                    ? `translate(-50%, -50%) translate(${slot.x}px, ${slot.y}px) rotate(${slot.rotate}deg) scale(${slot.scale})`
-                    : `translate(-50%, -50%) translate(${off < 0 ? -800 : 800}px, 120px) rotate(${off < 0 ? -28 : 28}deg) scale(0.85)`,
-                  opacity: visible ? slot.opacity : 0,
-                  filter: visible ? `blur(${slot.blur}px)` : "blur(4px)",
-                  zIndex: visible ? slot.z : 0,
-                  pointerEvents: isActive ? "none" : visible ? "auto" : "none",
-                  transition:
-                    "transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 600ms ease, filter 500ms ease",
-                }}
-              >
-                <Card story={story} active={isActive} />
-              </button>
-            );
-          })}
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <NavButton
+            direction="prev"
+            onClick={() => swiperRef.current?.slidePrev()}
+          />
+          <NavButton
+            direction="next"
+            onClick={() => swiperRef.current?.slideNext()}
+          />
         </div>
-      </div>
-
-      <div className="mx-auto flex max-w-[1280px] items-center justify-center gap-4 pb-20">
-        <NavButton direction="prev" onClick={prev} />
-        <NavButton direction="next" onClick={next} />
       </div>
     </section>
   );
 }
 
-function Card({ story, active }: { story: Story; active: boolean }) {
+function Card({ story }: { story: Story }) {
   return (
     <div
       className="relative h-[359px] w-[267px] overflow-hidden rounded-[26px] border-2 border-[#f7f8fa] text-left shadow-[0_30px_60px_-30px_rgba(15,30,60,0.25)]"
@@ -235,13 +251,6 @@ function Card({ story, active }: { story: Story; active: boolean }) {
           {story.solution}
         </p>
       </div>
-      {!active && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{ background: "rgba(247, 248, 250, 0.06)" }}
-        />
-      )}
     </div>
   );
 }
