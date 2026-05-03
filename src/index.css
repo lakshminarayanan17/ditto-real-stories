@@ -34,9 +34,7 @@ body {
 /* Carousel: joindawn-style creative effect (semicircle fan) */
 .real-stories-swiper-shell {
   position: relative;
-  /* Shell height = swiper card area + nav row.
-     Tight on purpose so nav sits right under the active card. */
-  height: 520px;
+  height: 600px;
 }
 
 .real-stories-swiper-shell .swiper {
@@ -57,9 +55,9 @@ body {
   cursor: grab;
 }
 
-/* Nav arrows sit ~12px below the active card bottom. */
+/* Comfortable breathing room between active card and nav arrows. */
 .real-stories-swiper-shell .real-stories-nav {
-  bottom: 12px;
+  bottom: 24px;
 }
 
 .real-stories-swiper-shell .swiper:active {
