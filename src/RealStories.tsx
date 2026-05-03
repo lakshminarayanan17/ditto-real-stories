@@ -174,7 +174,7 @@ export function RealStories() {
   const swiperRef = useRef<SwiperClass | null>(null);
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col overflow-hidden">
+    <section className="relative flex min-h-screen w-full flex-col overflow-hidden pt-[80px]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
@@ -219,7 +219,7 @@ export function RealStories() {
         </p>
       </div>
 
-      <div className="real-stories-swiper-shell relative mx-auto mt-[80px] w-full max-w-[1440px]">
+      <div className="real-stories-swiper-shell relative mx-auto w-full max-w-[1440px]">
         <Swiper
           modules={[Navigation, Pagination, EffectCreative, Keyboard, A11y]}
           className="testimonial_wrapper"
