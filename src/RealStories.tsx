@@ -281,7 +281,7 @@ export function RealStories() {
             <SwiperSlide
               key={story.id}
               className="testimonial_slide"
-              style={{ width: "267px" }}
+              style={{ width: "320px" }}
             >
               <div className="testimonial_card">
                 <Card story={story} />
@@ -306,9 +306,20 @@ export function RealStories() {
 }
 
 function Card({ story }: { story: Story }) {
+  // Scale image positioning ~1.2× to match the larger card
+  const scaledImageStyle: React.CSSProperties = story.imageStyle
+    ? {
+        ...story.imageStyle,
+        width:
+          typeof story.imageStyle.width === "string"
+            ? `${parseInt(story.imageStyle.width, 10) * 1.2}px`
+            : story.imageStyle.width,
+      }
+    : {};
+
   return (
     <div
-      className="relative h-[359px] w-[267px] overflow-hidden rounded-[26px] border-2 border-[#f7f8fa] text-left shadow-[0_30px_60px_-30px_rgba(15,30,60,0.25)]"
+      className="relative h-[440px] w-[320px] overflow-hidden rounded-[30px] border-2 border-[#f7f8fa] text-left shadow-[0_30px_60px_-30px_rgba(15,30,60,0.25)]"
       style={{ background: story.bg }}
     >
       <img
@@ -317,19 +328,19 @@ function Card({ story }: { story: Story }) {
         draggable={false}
         className="pointer-events-none absolute select-none"
         style={{
-          ...story.imageStyle,
+          ...scaledImageStyle,
           maxWidth: "none",
         }}
       />
-      <div className="relative h-full p-5">
+      <div className="relative h-full p-6">
         <p
-          className="text-[18px] font-medium leading-[1.22] tracking-[0.01em]"
+          className="text-[21px] font-medium leading-[1.25] tracking-[0.01em]"
           style={{ color: story.textColor }}
         >
           {story.problem}
         </p>
         <p
-          className="mt-6 text-[18px] font-medium leading-[1.22] tracking-[0.01em]"
+          className="mt-7 text-[21px] font-medium leading-[1.25] tracking-[0.01em]"
           style={{ color: story.textColor }}
         >
           {story.solution}
